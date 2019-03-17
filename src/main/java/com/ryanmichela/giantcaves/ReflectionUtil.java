@@ -12,11 +12,11 @@ public class ReflectionUtil {
         setProtectedValue(o.getClass(), o, field, newValue);
     }
 
-    public static void setProtectedValue(Class c, String field, Object newValue) {
+    public static void setProtectedValue(Class<?> c, String field, Object newValue) {
         setProtectedValue(c, null, field, newValue);
     }
 
-    public static void setProtectedValue(Class c, Object o, String field, Object newValue) {
+    public static void setProtectedValue(Class<?> c, Object o, String field, Object newValue) {
         try {
 
             Field f = c.getDeclaredField(field);
@@ -35,7 +35,7 @@ public class ReflectionUtil {
 
     public static <T> T getProtectedValue(Object obj, String fieldName) {
         try {
-            Class c = obj.getClass();
+            Class<?> c = obj.getClass();
             while(c != Object.class) {
                 Field[] fields = c.getDeclaredFields();
                 for(Field f : fields) {
@@ -54,7 +54,8 @@ public class ReflectionUtil {
         }
     }
 
-    public static <T> T getProtectedValue(Class c, String field) {
+    @SuppressWarnings("unchecked")
+	public static <T> T getProtectedValue(Class<?> c, String field) {
         try {
             Field f = c.getDeclaredField(field);
             f.setAccessible(true);
@@ -65,7 +66,7 @@ public class ReflectionUtil {
         }
     }
 
-    public static Object invokeProtectedMethod(Class c, String method, Object... args) {
+    public static Object invokeProtectedMethod(Class<?> c, String method, Object... args) {
         return invokeProtectedMethod(c, null, method, args);
     }
 
@@ -73,9 +74,9 @@ public class ReflectionUtil {
         return invokeProtectedMethod(o.getClass(), o, method, args);
     }
 
-    public static Object invokeProtectedMethod(Class c, Object o, String method, Object... args) {
+    public static Object invokeProtectedMethod(Class<?> c, Object o, String method, Object... args) {
         try {
-            Class[] pTypes = new Class[args.length];
+            Class<?>[] pTypes = new Class[args.length];
             for(int i = 0; i < args.length; i++) {
                 if (args[i] instanceof Integer) {
                     pTypes[i] = int.class;

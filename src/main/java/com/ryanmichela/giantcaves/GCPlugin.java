@@ -53,7 +53,7 @@ public class GCPlugin extends JavaPlugin {
         List<Map<?, ?>> worlds = getConfig().getMapList("worlds");
         for(Map<?, ?> worldConfig : worlds) {
             if(worldConfig.get("name").equals(bukkitWorld.getName())) {
-                return new Config((Map<String, Object>)worldConfig);
+                return new Config((Map<String, Object>) worldConfig);
             }
         }
         return null;

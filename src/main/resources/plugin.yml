@@ -1,6 +1,6 @@
 name: GiantCaves
-version: "1.10.2-R0.1"
-author: Deltahat
+version: "1.13.2-R0.1"
+author: Deltahat - Update & Modified by Textra
 main: com.ryanmichela.giantcaves.GCPlugin
 prefix: "GiantCaves"
 load: STARTUP

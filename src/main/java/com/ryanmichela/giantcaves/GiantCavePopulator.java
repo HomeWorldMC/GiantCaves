@@ -29,7 +29,7 @@ public class GiantCavePopulator extends BlockPopulator {
     private final BlockFace[] faces = { BlockFace.UP, BlockFace.NORTH, BlockFace.SOUTH, BlockFace.EAST, BlockFace.WEST };
 
     private final Config config;
-    private final Plugin plugin;
+    //private final Plugin plugin;
 
     // Material
     private final Material material;
@@ -37,7 +37,7 @@ public class GiantCavePopulator extends BlockPopulator {
 
     public GiantCavePopulator(Plugin plugin, Config config) {
         this.config = config;
-        this.plugin = plugin;
+        //this.plugin = plugin;
         material = Material.AIR;
         toucher = new BlockToucher(plugin);
         plugin.getServer().getPluginManager().registerEvents(new GCWaterHandler(config), plugin);
@@ -109,11 +109,11 @@ public class GiantCavePopulator extends BlockPopulator {
 
     private boolean isWater(Block block) {
         Material material = block.getType();
-        return material == Material.WATER || material == Material.STATIONARY_WATER;
+        return material == Material.WATER;
     }
 
     private boolean isLava(Block block) {
         Material material = block.getType();
-        return material == Material.LAVA || material == Material.STATIONARY_LAVA;
+        return material == Material.LAVA;
     }
 }
