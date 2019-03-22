@@ -14,6 +14,7 @@
 //along with this program.  If not, see <http://www.gnu.org/licenses/>.
 package com.ryanmichela.giantcaves;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Chunk;
 import org.bukkit.Material;
 import org.bukkit.World;
@@ -22,7 +23,9 @@ import org.bukkit.block.BlockFace;
 import org.bukkit.generator.BlockPopulator;
 import org.bukkit.plugin.Plugin;
 
+
 import java.util.Random;
+import java.util.logging.Logger;
 
 public class GiantCavePopulator extends BlockPopulator {
 
@@ -34,6 +37,9 @@ public class GiantCavePopulator extends BlockPopulator {
     // Material
     private final Material material;
     private final BlockToucher toucher;
+    private final Logger log;
+    
+    
 
     public GiantCavePopulator(Plugin plugin, Config config) {
         this.config = config;
@@ -41,14 +47,16 @@ public class GiantCavePopulator extends BlockPopulator {
         material = Material.AIR;
         toucher = new BlockToucher(plugin);
         plugin.getServer().getPluginManager().registerEvents(new GCWaterHandler(config), plugin);
+        
+        log = Bukkit.getLogger();
     }
 
     @Override
     public void populate(final World world, final Random random, final Chunk source) {
         GCRandom gcRandom = new GCRandom(source, config);
-
         for (int x = 0; x < 16; x++) {
             for (int z = 0; z < 16; z++) {
+            	
                 for (int y = config.caveBandMax; y >= config.caveBandMin; y--) {
                     if (gcRandom.isInGiantCave(x, y, z)) {
                         Block block = source.getBlock(x, y, z);

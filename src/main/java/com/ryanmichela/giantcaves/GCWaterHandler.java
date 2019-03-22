@@ -1,8 +1,8 @@
 package com.ryanmichela.giantcaves;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Chunk;
 import org.bukkit.Material;
-import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.craftbukkit.libs.it.unimi.dsi.fastutil.objects.ObjectLinkedOpenHashSet;
 import org.bukkit.craftbukkit.v1_13_R2.CraftWorld;
@@ -10,7 +10,9 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockFromToEvent;
 
+
 import java.util.WeakHashMap;
+import java.util.logging.Logger;
 
 /**
  * Copyright 2013 Ryan Michela
@@ -22,9 +24,11 @@ public class GCWaterHandler implements Listener {
     private final WeakHashMap<Chunk, GCRandom> randoms = new WeakHashMap<>();
 
     private final Config config;
+    private final Logger log;
 
     public GCWaterHandler(Config config) {
         this.config = config;
+        log = Bukkit.getLogger();
     }
 
     @EventHandler
@@ -55,17 +59,21 @@ public class GCWaterHandler implements Listener {
         Object handle = ReflectionUtil.getProtectedValue(world, "world");
         Object d = ReflectionUtil.getProtectedValue(handle, "d");
         
-        for (Object o : (ObjectLinkedOpenHashSet<?>) handle) {        	
-        	Class<?> c = o.getClass();
-        	c.getName();
-        	System.out.println("Handle Class name : " + c.getName().toString());
-        }
-        
-        for (Object o : (ObjectLinkedOpenHashSet<?>) d) {        	
-        	Class<?> c = o.getClass();
-        	c.getName();
-        	System.out.println("d Class name : " + c.getName().toString());
-        }
+        if (handle instanceof ObjectLinkedOpenHashSet) {
+	        for (Object o : (ObjectLinkedOpenHashSet<?>) handle) {        	
+	        	Class<?> c = o.getClass();
+	        	c.getName();
+	        	System.out.println("Handle Class name : " + c.getName().toString());
+	        	
+	        	//log.info("testing my logger..." + c.getName().toString());
+	        }
+	        
+	        for (Object o : (ObjectLinkedOpenHashSet<?>) d) {        	
+	        	Class<?> c = o.getClass();
+	        	c.getName();
+	        	System.out.println("d Class name : " + c.getName().toString());
+	        }
+    	}
         //return (boolean) d;
         return false;
     }
